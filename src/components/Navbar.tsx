@@ -8,8 +8,10 @@ import {
   TrendingUp,
   HeartPulse,
   User,
+  LogOut,
 } from 'lucide-react';
 import { useStore } from '@/lib/store';
+import { api } from '@/lib/api';
 
 const NAV_ITEMS = [
   { key: 'home', label: 'Home', path: '/', icon: LayoutDashboard },
@@ -42,6 +44,11 @@ export default function Navbar() {
   const handleTap = (index: number) => {
     setActiveIndex(index);
     navigate(NAV_ITEMS[index].path);
+  };
+
+  const handleLogout = () => {
+    api.logout();
+    window.location.href = '/login';
   };
 
   return (
@@ -81,6 +88,28 @@ export default function Navbar() {
             </button>
           );
         })}
+
+        {/* Logout button */}
+        <button
+          onClick={handleLogout}
+          className="flex flex-col items-center justify-center w-14 h-14 touch-target relative"
+          aria-label="Logout"
+        >
+          <motion.div
+            whileTap={{ scale: 0.92 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+            className="flex flex-col items-center gap-1"
+          >
+            <LogOut
+              size={22}
+              strokeWidth={1.5}
+              className="text-text-secondary"
+            />
+            <span className="text-[10px] font-medium tracking-wide uppercase text-text-secondary">
+              Logout
+            </span>
+          </motion.div>
+        </button>
 
         {/* Active indicator pill */}
         <motion.div
