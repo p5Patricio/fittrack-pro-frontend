@@ -18,7 +18,7 @@ export default function Login() {
     setError('');
     try {
       await api.login(email, password);
-      window.location.href = '/';
+      navigate('/');
     } catch (err: any) {
       setError(err.message || 'Login failed');
     } finally {
